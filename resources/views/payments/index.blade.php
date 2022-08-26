@@ -2,12 +2,6 @@
 
 @section('content')
 
-@if(session()->has('message'))
-<div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-    {{ session()->get('message')}}
-</div>
-@endif
-
 
 <h1 class="text-center">Payments</h1>
 <div class="overflow-x-auto relative">
@@ -43,11 +37,7 @@
         <tbody>
 
 
-            @if ($clients->isEmpty())
-            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-               <p>No Clients </p>
-            </div>
-            @else
+
                 @foreach ($clients as $client)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="py-3 px-5">
@@ -94,7 +84,7 @@
                 @endforeach
 
 
-            @endif
+
 
 
         </tbody>
@@ -106,6 +96,27 @@
         {{ $clients->links() }}
     </div>
 </div>
+
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+     @if ($clients->isEmpty())
+                toastr.info("No clients found")
+
+     @endif
+
+    @if(Session::has('success'))
+
+        toastr.success("{{ Session::get('success')}}")
+    @endif
+
+    @if(Session::has('error'))
+
+        toastr.info("{{ Session::get('error')}}")
+    @endif
+</script>
 
 @endsection
 

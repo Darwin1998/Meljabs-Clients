@@ -60,14 +60,13 @@ class ClientController extends Controller
 
         if($request->filled('search'))
         {
-            if(Client::where('address', '=', $q)->where('first_name', '=', $q)->where('last_name', '=', $q)->where('status', '=', $q)->exists())
+            if(Client::where('address', '=', $q)->where('first_name', '=', $q)->where('last_name', '=', $q)->exists())
             {
 
 
                 $client = Client::where('address','LIKE','%'.$q.'%')
                                 ->where('first_name','LIKE','%'.$q.'%')
                                 ->where('last_name','LIKE','%'.$q.'%')
-                                ->where('status','LIKE','%'.$q.'%')
                                 ->get();
 
 
@@ -77,7 +76,7 @@ class ClientController extends Controller
 
             else
             {
-                return redirect()->route('client.index')->with('message', 'Clients not found');
+                return redirect()->route('client.index')->with('error', 'Clients not found');
 
             }
 
@@ -116,7 +115,7 @@ class ClientController extends Controller
 
         Client::create($client);
         return redirect()->route('client.index')
-                         ->with('message','Client Added!!!');
+                         ->with('success','Client Added!!!');
     }
 
     /**
@@ -163,7 +162,7 @@ class ClientController extends Controller
 
 
         $client->update($data);
-        return redirect()->route('client.show', $client->id)->with('message','Client Updated!!!');
+        return redirect()->route('client.show', $client->id)->with('success','Client Updated!!!');
     }
 
     /**
@@ -176,13 +175,13 @@ class ClientController extends Controller
     {
         $client->delete();
 
-        return redirect()->route('client.index')->with('message', 'Client Deleted!');
+        return redirect()->route('client.index')->with('success', 'Client Deleted!');
     }
 
     public function restore($clientId)
     {
         Client::withTrashed()->find($clientId)->restore();
 
-        return redirect()->route('client.index')->with('message', 'Client Restored');
+        return redirect()->route('client.index')->with('success', 'Client Restored');
     }
 }

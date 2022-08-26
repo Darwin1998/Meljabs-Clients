@@ -60,7 +60,7 @@ class PaymentController extends Controller
 
         $client->payments()->create($data);
 
-        return redirect()->route('payment.index')->with('message', $client->first_name.' paid successfully');
+        return redirect()->route('payment.index')->with('success', $client->first_name.' paid successfully');
     }
 
     /**

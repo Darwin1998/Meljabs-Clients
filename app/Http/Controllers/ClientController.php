@@ -74,12 +74,7 @@ class ClientController extends Controller
                 return view('clients.search',['client'=> $client]);
             }
 
-            // else if(Client::where('first_name', '=', $q)->exists())
-            // {
-            //     $client = Client::where('first_name','LIKE','%'.$q.'%')->get();
-            //     return view('clients.search',['client'=> $client]);
 
-            // }
             else
             {
                 return redirect()->route('client.index')->with('message', 'Clients not found');
